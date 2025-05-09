@@ -1,0 +1,94 @@
+<!-- biowatch.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BioWatch – Ben Oleynik</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='80' font-size='80'%3E🌌%3C/text%3E%3C/svg%3E"/>
+  <link href="https://fonts.googleapis.com/css2?family=Severance:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* same reset/gradient */
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{width:100%;height:100%;overflow-x:hidden;
+      font-family:'Severance',sans-serif;
+      background:linear-gradient(to bottom,#000 0%,#002b5b 60%,#0074D9 100%);
+      color:#fff;scroll-behavior:smooth}
+    nav{position:fixed;top:1rem;left:50%;transform:translateX(-50%);
+      z-index:10;display:flex;gap:2rem}
+    nav a{color:#fff;text-decoration:none;font-weight:700;
+      opacity:.7;transition:opacity .3s}
+    nav a:hover{opacity:1}
+    section{padding:6rem 2rem;min-height:100vh;
+      display:flex;flex-direction:column;align-items:center;
+      text-align:left;position:relative}
+    .case-card{background:rgba(255,255,255,0.95);color:#000;
+      border-radius:1rem;padding:2rem;max-width:800px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.15);}
+    .case-card h1{margin-bottom:1rem;text-align:center}
+    .case-card img{width:100%;border-radius:.5rem;margin-bottom:1rem}
+    .summary{display:grid;grid-template-columns:1fr 1fr;
+      gap:1rem;margin-bottom:2rem}
+    .summary p{margin:.25rem 0}
+    .section{margin-bottom:2rem}
+    .section h2{margin-bottom:.5rem;color:#002b5b}
+    .section h3{margin-top:1rem;color:#002b5b}
+    .section ul{padding-left:1.2rem;}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html#space">Home</a>
+  <a href="projects.html">Projects</a>
+  <a href="about.html">About</a>
+  <a href="index.html#contact">Contact</a>
+</nav>
+
+<section id="bio-watch">
+  <div class="case-card">
+    <h1>BioWatch</h1>
+    <img src="assets/biowatch-banner.jpg" alt="BioWatch banner"/>
+
+    <div class="summary">
+      <p><strong>Role:</strong> Lead Designer & Developer</p>
+      <p><strong>Timeline:</strong> Jan 2024–Apr 2024</p>
+      <p><strong>Tools:</strong> Figma, React, Python (AI/ML)</p>
+      <p><strong>Type:</strong> Mobile App (AI Challenge)</p>
+    </div>
+
+    <div class="section">
+      <h2>About</h2>
+      <p>BioWatch is an AI-driven solution for tracking invasive insect species in real time, using computer vision to enable rapid identification and mapping of outbreaks.</p>
+    </div>
+
+    <div class="section">
+      <h2>Problem Statement</h2>
+      <p>Traditional monitoring of invasive species is slow and labor-intensive. BioWatch addresses the need for a real-time, accessible tool that empowers researchers and citizen scientists to report sightings quickly.</p>
+    </div>
+
+    <div class="section">
+      <h2>Process</h2>
+      <p>We began with user research and requirement gathering, moved to wireframing and prototyping in Figma, then built the mobile interface and integrated an AI model for image recognition.</p>
+      <h3>Pain Points</h3>
+      <ul>
+        <li>Collecting a large, labeled dataset of insect images.</li>
+        <li>Optimizing the AI model for speed on mobile devices.</li>
+        <li>Simplifying complex AI results into user-friendly feedback.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Final Product</h2>
+      <p>The delivered iOS app lets users snap a photo of an insect, receive an instant species ID, and plot the sighting on a shared map dashboard for researchers.</p>
+    </div>
+
+    <div class="section">
+      <h2>Reflection</h2>
+      <p>Winning First Place in the 2024 Nittany AI Challenge, BioWatch demonstrated AI’s power for ecological conservation. This project reinforced the value of interdisciplinary collaboration and subtle, supportive UX design.</p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

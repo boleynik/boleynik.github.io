@@ -1,0 +1,142 @@
+<!-- projects.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects – Ben Oleynik</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='80' font-size='80'%3E🌌%3C/text%3E%3C/svg%3E"/>
+  <link href="https://fonts.googleapis.com/css2?family=Severance:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* --- global resets & gradients (same as index.html) --- */
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{width:100%;height:100%;overflow-x:hidden;
+      font-family:'Severance',sans-serif;
+      background: linear-gradient(to bottom,#000 0%,#002b5b 60%,#0074D9 100%);
+      color:#fff;scroll-behavior:smooth}
+    nav{position:fixed;top:1rem;left:50%;transform:translateX(-50%);
+      z-index:10;display:flex;gap:2rem}
+    nav a{color:#fff;text-decoration:none;font-weight:700;
+      opacity:.7;transition:opacity .3s}
+    nav a:hover{opacity:1}
+    /* --- page container --- */
+    section{padding:6rem 2rem;min-height:100vh;
+      display:flex;flex-direction:column;align-items:center;
+      text-align:center;position:relative}
+    h1{font-size:clamp(2rem,5vw,3rem);margin-bottom:1rem}
+    /* --- grid & cards --- */
+    .grid{display:flex;flex-wrap:wrap;justify-content:center;gap:2rem;
+      max-width:1000px;margin-bottom:2rem}
+    .card{background:rgba(255,255,255,0.9);color:#000;
+      border-radius:1rem;padding:1.5rem;cursor:pointer;
+      width:240px;transition:transform .3s,opacity .3s;
+      position:relative;}
+    .card:hover{transform:translateY(-5px)}
+    .card img{width:100%;border-radius:.5rem;margin-bottom:.5rem}
+    .card h3{margin-bottom:.5rem}
+    /* --- show more button --- */
+    #show-more{padding:.75rem 1.5rem;border:none;
+      background:rgba(255,255,255,0.9);color:#000;
+      border-radius:.5rem;font-weight:700;cursor:pointer;
+      transition:background .3s}
+    #show-more:hover{background:#fff}
+    /* --- modal overlay --- */
+    .modal-backdrop{position:fixed;top:0;left:0;width:100%;height:100%;
+      background:rgba(0,0,0,0.8);display:flex;align-items:center;
+      justify-content:center;z-index:1000}
+    .modal{background:#fff;color:#000;border-radius:1rem;
+      max-width:90vw;max-height:90vh;overflow:auto;position:relative;
+      padding:2rem}
+    .modal button.close{position:absolute;top:1rem;right:1rem;
+      background:none;border:none;font-size:1.5rem;cursor:pointer}
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <a href="index.html#space">Home</a>
+  <a href="projects.html">Projects</a>
+  <a href="about.html">About</a>
+  <a href="index.html#contact">Contact</a>
+</nav>
+
+<!-- Projects Section -->
+<section id="projects">
+  <h1>Featured Projects</h1>
+  <div class="grid" id="featured">
+    <!-- BioWatch Card -->
+    <div class="card" data-title="BioWatch" data-image="assets/biowatch-banner.jpg" data-detail="AI-powered solution for tracking invasive species in real time.">
+      <img src="assets/biowatch-thumb.jpg" alt="BioWatch thumbnail"/>
+      <h3>BioWatch</h3>
+      <p>AI-powered invasive species tracker</p>
+    </div>
+    <!-- More featured placeholders -->
+    <div class="card" data-title="Project Two" data-image="assets/project2.jpg" data-detail="Interactive map with React & D3.">
+      <img src="assets/project2-thumb.jpg" alt="Project Two thumbnail"/>
+      <h3>Project Two</h3>
+      <p>Custom D3 data visualization</p>
+    </div>
+    <div class="card" data-title="Project Three" data-image="assets/project3.jpg" data-detail="Mobile app prototype for adventure planning.">
+      <img src="assets/project3-thumb.jpg" alt="Project Three thumbnail"/>
+      <h3>Project Three</h3>
+      <p>Adventure planning app</p>
+    </div>
+  </div>
+
+  <!-- Show More / Other Projects -->
+  <button id="show-more">Show More</button>
+  <div class="grid" id="others" style="display:none;">
+    <!-- Placeholder other projects -->
+    <div class="card" data-title="Project Four" data-image="assets/project4.jpg" data-detail="Description of Project Four.">
+      <img src="assets/project4-thumb.jpg" alt="Project Four"/>
+      <h3>Project Four</h3>
+      <p>Another great project</p>
+    </div>
+    <div class="card" data-title="Project Five" data-image="assets/project5.jpg" data-detail="Description of Project Five.">
+      <img src="assets/project5-thumb.jpg" alt="Project Five"/>
+      <h3>Project Five</h3>
+      <p>Yet another project</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Toggle show more
+  document.getElementById('show-more').addEventListener('click', () => {
+    const others = document.getElementById('others');
+    const btn = document.getElementById('show-more');
+    if (others.style.display === 'none') {
+      others.style.display = 'flex';
+      btn.textContent = 'Show Less';
+    } else {
+      others.style.display = 'none';
+      btn.textContent = 'Show More';
+    }
+  });
+
+  // Card click → modal
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+      const title = card.dataset.title;
+      const img  = card.dataset.image;
+      const detail = card.dataset.detail;
+
+      // Build modal
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop';
+      backdrop.innerHTML = `
+          <div class="modal">
+            <button class="close">&times;</button>
+            <h2>${title}</h2>
+            <img src="${img}" alt="${title}" style="width:100%;border-radius:.5rem;margin:1rem 0;">
+            <p>${detail}</p>
+          </div>`;
+
+      document.body.appendChild(backdrop);
+      backdrop.querySelector('.close').onclick = () => backdrop.remove();
+    });
+  });
+</script>
+</body>
+</html>
