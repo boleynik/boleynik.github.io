@@ -37,7 +37,6 @@
     }
     .hero-space {
       z-index: 2; max-width: 800px; padding: 1rem;
-      /* centered by section flex */
     }
     .hero-space h1 {
       font-size: clamp(3rem, 8vw, 4rem);
@@ -62,9 +61,9 @@
     #projects {
       min-height: 100vh;
       background: linear-gradient(to bottom, #000 0%, #002b5b 60%, #0074D9 100%);
-      padding: 6rem 2rem; overflow: hidden;
+      padding: 6rem 2rem;
     }
-    .projects-cloud .cloud { /* existing cloud styling */ }
+    .projects-cloud .cloud { /* cloud styling */ }
     h2.fade-title {
       z-index: 2; font-size: 2.5rem; margin-bottom: 1rem;
       opacity: 0; transition: opacity 1.2s ease;
@@ -80,7 +79,7 @@
       min-width: 240px; max-width: 280px;
       text-align: left; cursor: pointer;
       opacity: 0; transform: translateY(30px);
-      transition: opacity .6s ease, transform .6s ease;
+      transition: opacity 1.2s ease, transform 1.2s ease;
     }
     .card.show { opacity: 1; transform: translateY(0); }
     #see-all {
@@ -93,9 +92,9 @@
     /* About Me */
     #about {
       background: linear-gradient(to bottom, #0074D9, #7FDBFF);
-      color: #111; padding: 6rem 2rem 8rem; overflow: hidden;
+      color: #111; padding: 6rem 2rem 8rem;
     }
-    .about-cloud .cloud { /* existing cloud styling */ }
+    .about-cloud .cloud { /* cloud styling */ }
     .section-content.about {
       display: flex; align-items: center; gap: 2rem;
       max-width: 800px; padding: 2rem;
@@ -110,24 +109,28 @@
       border-radius: 50%; flex-shrink: 0;
     }
     .see-more { margin-top: 1rem; font-weight: 700; color: #0074D9; }
-    @keyframes cloudMove{0%{transform:translateX(-200px)}100%{transform:translateX(120vw)}}
     /* Contact */
-    #contact{background:#2ECC40;color:#111;padding:4rem 2rem}
-    .contact-buttons{display:flex;gap:1rem;margin-top:1rem}
-    .contact-buttons button,.contact-buttons a{padding:.75rem 2rem;border:none;border-radius:4px;font-weight:700;text-decoration:none;cursor:pointer;color:#fff}
-    .contact-buttons button{background:#0074D9}
-    .contact-buttons a{background:#555}
-    .contact-buttons button:hover{background:#005fa3}
-    .contact-buttons a:hover{background:#333}
+    #contact { background: #2ECC40; color: #111; padding: 4rem 2rem; }
+    .contact-buttons { display: flex; gap: 1rem; margin-top: 1rem; }
+    .contact-buttons button, .contact-buttons a {
+      padding: .75rem 2rem; border: none; border-radius: 4px;
+      font-weight: 700; text-decoration: none; cursor: pointer;
+      color: #fff;
+    }
+    .contact-buttons button { background: #0074D9; }
+    .contact-buttons a { background: #555; }
+    .contact-buttons button:hover { background: #005fa3; }
+    .contact-buttons a:hover { background: #333; }
   </style>
 </head>
 <body>
 <nav>
-  <a href="index.html#space">Home</a>
+  <a href="index.html">Home</a>
   <a href="projects.html">Projects</a>
   <a href="about.html">About</a>
-  <a href="#contact">Contact</a>
+  <a href="index.html#contact">Contact</a>
 </nav>
+
 <section id="space">
   <canvas id="bg"></canvas>
   <div class="hero-space">
@@ -141,21 +144,27 @@
     </div>
   </div>
 </section>
+
 <section id="projects">
   <div class="projects-cloud">
-    <div class="cloud one"></div><div class="cloud two"></div><div class="cloud three"></div>
+    <div class="cloud one"></div>
+    <div class="cloud two"></div>
+    <div class="cloud three"></div>
   </div>
   <h2 class="fade-title">Featured Projects</h2>
   <div class="grid">
-    <div class="card" onclick="location.href='biowatch.html'"><h3>Project One</h3><p>Dashboard redesign improving task flow.</p></div>
-    <div class="card" onclick="location.href='project2.html'"><h3>Project Two</h3><p>Built custom D3 map.</p></div>
-    <div class="card" onclick="location.href='project3.html'"><h3>Project Three</h3><p>Mobile app prototype for adventure planning.</p></div>
+    <div class="card" data-title="Project One" data-detail="Increased task completion by 30%" onclick="location.href='biowatch.html'"><h3>Project One</h3><p>Dashboard redesign improving task flow.</p></div>
+    <div class="card" data-title="Project Two" data-detail="Built custom D3 map" onclick="location.href='project2.html'"><h3>Project Two</h3><p>Interactive map with React & D3.</p></div>
+    <div class="card" data-title="Project Three" data-detail="Boosted engagement by 25%" onclick="location.href='project3.html'"><h3>Project Three</h3><p>Mobile app prototype for adventure planning.</p></div>
   </div>
   <button id="see-all" onclick="location.href='projects.html'">See All Projects</button>
 </section>
+
 <section id="about">
   <div class="about-cloud">
-    <div class="cloud one"></div><div class="cloud two"></div><div class="cloud three"></div>
+    <div class="cloud one"></div>
+    <div class="cloud two"></div>
+    <div class="cloud three"></div>
   </div>
   <div class="section-content about" onclick="location.href='about.html'">
     <div class="about-photo"></div>
@@ -166,6 +175,7 @@
     </div>
   </div>
 </section>
+
 <section id="contact">
   <div class="section-content">
     <h2>Get In Touch</h2>
@@ -177,12 +187,133 @@
     </div>
   </div>
 </section>
+
 <script>
-  const cards=document.querySelectorAll('.card'),title=document.querySelector('.fade-title');
-  new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){title.classList.add('show');cards.forEach((c,i)=>setTimeout(()=>c.classList.add('show'),i*150));}else{title.classList.remove('show');cards.forEach(c=>c.classList.remove('show'));}}),{threshold:.3}).observe(document.getElementById('projects'));
-  function initStarfield(canvas,height){const ctx=canvas.getContext('2d'),dpr=window.devicePixelRatio||1;let stars=[];function resize(){const w=window.innerWidth;canvas.width=w*dpr;canvas.height=height*dpr;canvas.style.width=w+'px';canvas.style.height=height+'px';ctx.scale(dpr,dpr);stars=[];for(let i=0;i<200;i++){const base=Math.random()*1.5+0.5;stars.push({x:Math.random()*w,y:Math.random()*height,baseR:base,r:base,dr:Math.random()*0.01+0.002});}}function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);stars.forEach(s=>{s.r+=s.dr;if(s.r<s.baseR*0.5||s.r>s.baseR*1.5)s.dr=-s.dr;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();});requestAnimationFrame(animate);}window.addEventListener('resize',resize);resize();animate();}
-  initStarfield(document.getElementById('bg'),window.innerHeight);
-  initStarfield(document.getElementById('stars'),200);
+  window.addEventListener('load', () => window.scrollTo(0, 0));
+  // View Projects scroll
+  const viewBtn = document.getElementById('view-projects');
+  if (viewBtn) viewBtn.addEventListener('click', () => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' }));
+
+  // Projects intersection animation
+  const cards = document.querySelectorAll('.card');
+  const title = document.querySelector('h2.fade-title');
+  new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) {
+      title.classList.add('show');
+      cards.forEach((c, i) => setTimeout(() => c.classList.add('show'), i * 150));
+    } else {
+      title.classList.remove('show');
+      cards.forEach(c => c.classList.remove('show'));
+    }
+  }), { threshold: .3 }).observe(document.getElementById('projects'));
+
+  // Parallax & Bloom/Twinkle combined
+  const canvas = document.getElementById('bg');
+  const ctx = canvas.getContext('2d');
+  const dprVal = window.devicePixelRatio || 1;
+  let stars = [], mousePos = { x:0, y:0 }, last = performance.now();
+
+  onresize = () => {
+    const w = innerWidth, h = innerHeight;
+    canvas.width = w * dprVal;
+    canvas.height = h * dprVal;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.scale(dprVal, dprVal);
+    initStars();
+  };
+  onresize();
+  onmousemove = e => {
+    mousePos.x = e.clientX - innerWidth/2;
+    mousePos.y = e.clientY - innerHeight/2;
+  };
+  onscroll = () => {
+    const s = window.scrollY, h = innerHeight;
+    canvas.style.opacity = Math.max(0, Math.min(1, 1 - s/h));
+  };
+
+  function initStars(count=600) {
+    stars = [];
+    const w = innerWidth, h = innerHeight;
+    const skills = [
+      'JavaScript','TypeScript','Angular','AngularJS','.NET Framework',
+      'MySQL','ESRI','API','Software Dev','OOP','ML','AI','LLM',
+      'CSS','HTML','ArcGIS','Networking','Telecom','Programming'
+    ];
+    for (let i=0;i<count;i++) {
+      stars.push({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        r: Math.random()*1.5+0.5,
+        alpha: .5+Math.random()*.5,
+        depth: Math.random(),
+        tw: Math.random()*2000,
+        ts: .0002+Math.random()*.001,
+        text: null,
+        lt: 0,
+        ti: 20000,
+        as: .0005+Math.random()*.002,
+        aa: .05+Math.random()*.3
+      });
+    }
+    skills.sort(()=>Math.random()-.5).forEach(skill => {
+      let placed = false;
+      while (!placed) {
+        const s = stars.find(s=>!s.text);
+        if (!s) break;
+        const margin = 100;
+        const x = margin + Math.random() * (w - 2 * margin), y = margin + Math.random() * (h - 2 * margin);
+        const coll = stars.some(o=>o.text && Math.hypot(o.x-x,o.y-y)<100);
+        if (!coll) { s.text=skill; s.x=x; s.y=y; s.lt=performance.now()-Math.random()*s.ti; placed=true; }
+      }
+    });
+  }
+
+  function animate(time) {
+    const dt = time - last; last = time;
+    ctx.clearRect(0,0,innerWidth,innerHeight);
+    const hr = document.querySelector('.hero-space').getBoundingClientRect();
+    stars.forEach(s => {
+      s.x += (Math.random()-.5)*.1;
+      s.y += (Math.random()-.5)*.1;
+      if (s.x<0) s.x=innerWidth;
+      else if (s.x>innerWidth) s.x=0;
+      if (s.y<0) s.y=innerHeight;
+      else if (s.y>innerHeight) s.y=0;
+      const px = s.x + mousePos.x*s.depth*.05;
+      const py = s.y + mousePos.y*s.depth*.05;
+      if (px>=hr.left && px<=hr.right && py>=hr.top && py<=hr.bottom) return;
+      if (s.text) {
+        if (time - s.lt > s.ti) {
+          let placed=false;
+          while(!placed) {
+            const x = Math.random()*innerWidth, y=Math.random()*innerHeight;
+            const coll = stars.some(o=>o.text && Math.hypot(o.x-x,o.y-y)<100);
+            if(!coll){s.x=x; s.y=y; placed=true;}
+          }
+          s.lt=time;
+        }
+        const elapsed=(time-s.lt)/s.ti;
+        const sc = elapsed<.5 ? elapsed*2 : (1-elapsed)*2;
+        const size=(12+s.depth*12)*sc;
+        ctx.save(); ctx.translate(px,py);
+        ctx.rotate(Math.sin(time*s.as+s.tw*.001)*s.aa);
+        ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.font=`${size}px 'Severance',sans-serif`;
+        ctx.fillStyle=`rgba(255,255,255,${sc})`;
+        ctx.fillText(s.text,0,0);
+        ctx.restore();
+      } else {
+        s.tw += dt;
+        if (s.tw>3000) { s.alpha=.3+Math.random()*.7; s.tw=0; }
+        ctx.globalAlpha = s.alpha;
+        ctx.beginPath(); ctx.arc(px,py,s.r,0,Math.PI*2);
+        ctx.fillStyle='#fff'; ctx.fill(); ctx.globalAlpha=1;
+      }
+    });
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
 </script>
 </body>
 </html>
