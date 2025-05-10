@@ -1,43 +1,91 @@
-<!-- about.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About – Ben Oleynik</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='80' font-size='80'%3E🌌%3C/text%3E%3C/svg%3E"/>
-  <link href="https://fonts.googleapis.com/css2?family=Severance:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='80' font-size='80'%3E🌌%3C/text%3E%3C/svg%3E" />
+  <link href="https://fonts.googleapis.com/css2?family=Severance:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    /* …same reset & gradient background… */
-    *{margin:0;padding:0;box-sizing:border-box}
-    html,body{width:100%;height:100%;overflow-x:hidden;
-      font-family:'Severance',sans-serif;
-      background: linear-gradient(to bottom,#000 0%,#002b5b 60%,#0074D9 100%);
-      color:#fff;scroll-behavior:smooth}
-    nav{position:fixed;top:1rem;left:50%;transform:translateX(-50%);
-      z-index:10;display:flex;gap:2rem}
-    nav a{color:#fff;text-decoration:none;font-weight:700;
-      opacity:.7;transition:opacity .3s}
-    nav a:hover{opacity:1}
-    section{padding:6rem 2rem;min-height:100vh;
-      display:flex;flex-direction:column;align-items:center;
-      text-align:center;position:relative}
-    /* About content card */
-    .content-card{background:rgba(255,255,255,0.9);color:#111;
-      border-radius:1rem;padding:2rem;max-width:800px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.15);
-      display:flex;gap:2rem;align-items:center;flex-wrap:wrap;}
-    .content-card img{width:180px;height:180px;
-      border-radius:50%;object-fit:cover;}
-    .content-card div{flex:1;text-align:left}
-    @media(max-width:600px){
-      .content-card{flex-direction:column;text-align:center}
-      .content-card div{margin-top:1rem}
+    /* Resets & background */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%; height: 100%; overflow-x: hidden;
+      font-family: 'Severance', sans-serif;
+      background: linear-gradient(to bottom, #000 0%, #002b5b 60%, #0074D9 100%);
+      color: #fff; scroll-behavior: smooth;
+    }
+    /* Starfield canvas */
+    #stars {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 200px;
+      z-index: 0; pointer-events: none;
+    }
+    /* Navigation */
+    nav {
+      position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; gap: 2rem;
+    }
+    nav a {
+      color: #fff; text-decoration: none; font-weight: 700; opacity: .7;
+      transition: opacity .3s;
+    }
+    nav a:hover { opacity: 1; }
+    /* Sections */
+    section { padding: 6rem 2rem; position: relative; z-index: 1; }
+    /* About card */
+    .content-card {
+      background: rgba(255,255,255,0.9); color: #111;
+      border-radius: 1rem; padding: 3rem; margin-top: 2rem; max-width: 1000px; margin: 2rem auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: flex; align-items: center; gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .photo-container {
+      flex: 0 0 auto; width: 300px; height: 300px;
+      border-radius: 1rem; overflow: hidden; position: relative;
+    }
+    .photo-container img {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 100%;
+      width: auto;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .photo-container img.active { opacity: 1; }
+    .text-container { flex: 1; text-align: left; }
+    .text-container h1 { margin-bottom: 1rem; font-size: 2.5rem; }
+    .text-container p { margin-bottom: 1rem; line-height: 1.5; }
+    @media (max-width: 900px) {
+      .content-card { flex-direction: column; align-items: center; padding: 2rem; }
+      .photo-container { width: 250px; height: 250px; margin-bottom: 1rem; }
+    }
+    /* Education section */
+    #education { padding: 4rem 2rem; text-align: center; position: relative; z-index: 1; }
+    #education h2 { font-size: 2rem; margin-bottom: 2rem; }
+    .edu-container { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+    .edu-card {
+      background: rgba(255,255,255,0.9); color: #111;
+      border-radius: 1rem; padding: 2rem; width: calc(50% - 2rem); max-width: 800px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: flex; align-items: center; gap: 1.5rem;
+      text-align: left;
+    }
+    .edu-card img.logo { height: 150px; width: auto; flex-shrink: 0; }
+    .edu-text { text-align: left; }
+    .edu-text h3 { margin-bottom: .5rem; font-weight: 700; }
+    .edu-text p { margin-bottom: .5rem; font-weight: 400; }
+    @media (max-width: 800px) {
+      .edu-card { flex-direction: column; align-items: center; }
     }
   </style>
 </head>
 <body>
-
+<canvas id="stars"></canvas>
 <nav>
   <a href="index.html#space">Home</a>
   <a href="projects.html">Projects</a>
@@ -45,16 +93,107 @@
   <a href="index.html#contact">Contact</a>
 </nav>
 
+<!-- About Me -->
 <section id="about">
   <div class="content-card">
-    <img src="assets/profile-placeholder.jpg" alt="Ben Oleynik"/>
-    <div>
+    <div class="photo-container">
+      <img src="assets/photo1.jpg" alt="Ben Photo" class="active" />
+      <img src="assets/photo2.jpg" alt="Ben Photo" />
+      <img src="assets/photo3.jpg" alt="Ben Photo" />
+      <img src="assets/photo4.jpg" alt="Ben Photo" />
+      <img src="assets/photo5.jpg" alt="Ben Photo" />
+      <img src="assets/photo6.jpg" alt="Ben Photo" />
+    </div>
+    <div class="text-container">
       <h1>About Me</h1>
-      <p><strong>Hi, I’m Ben Oleynik.</strong> I’m a UX designer and developer passionate about crafting interactive experiences that blend usability and innovation.</p>
-      <p>With a background in HCI and full-stack development, I excel at turning research insights into clean, elegant code. Outside of work, I love rock climbing and exploring new frontiers in AI and IoT.</p>
+      <p><strong>Hi, I’m Ben!</strong> I’m enrolled in Penn State’s Integrated Undergraduate-Graduate (IUG) program, studying both Informatics at the master's level and Human-Centered Design & Development for my bachelor’s.</p>
+      <p>My coursework and internships have sharpened my skills in software design, UX research, and development. Outside the classroom, I guide outdoor trips and manage the campus climbing wall—roles that build leadership and let me live my passion for the outdoors.</p>
+      <p>I aim to bridge these worlds by designing tech that thrives in rugged environments—my master’s research explores HCI in outdoor settings to ensure interfaces remain useful when adventure calls.</p>
+      <p>Thanks for visiting! Feel free to connect—I'm always excited to learn about others’ passions and share ideas.</p>
     </div>
   </div>
 </section>
 
+<!-- Education -->
+<section id="education">
+  <h2>Education</h2>
+  <div class="edu-container">
+    <div class="edu-card">
+      <img src="assets/psu.svg" alt="Penn State Logo" class="logo" />
+      <div class="edu-text">
+        <h3>Master of Science, Informatics</h3>
+        <p>Penn State University</p>
+        <p>Expected May 2026</p>
+        <p>Focus: Human-Computer Interaction in Outdoor Environments</p>
+      </div>
+    </div>
+    <div class="edu-card">
+      <img src="assets/psu.svg" alt="Penn State Logo" class="logo" />
+      <div class="edu-text">
+        <h3>Bachelor of Science, Human-Centered Design & Development (Cum Laude)</h3>
+        <p>Penn State University</p>
+        <p>Graduated May 2025 • GPA 3.86</p>
+        <p>Certificate: Information Sciences & Technology</p>
+        <p>Focus: GIS Applications</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Starfield animation: bloom effect only
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  let starsArr = [];
+  function resize() {
+    const w = window.innerWidth;
+    const h = 200;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.scale(dpr, dpr);
+    initStars();
+  }
+  function initStars(count = 200) {
+    starsArr = [];
+    const w = window.innerWidth;
+    for (let i = 0; i < count; i++) {
+      const base = Math.random() * 1.5 + 0.5;
+      starsArr.push({
+        x: Math.random() * w,
+        y: Math.random() * 200,
+        baseR: base,
+        r: base,
+        dr: (Math.random() * 0.01 + 0.002)
+      });
+    }
+  }
+  function animate() {
+    ctx.clearRect(0, 0, window.innerWidth, 200);
+    starsArr.forEach(s => {
+      s.r += s.dr;
+      if (s.r < s.baseR * 0.5 || s.r > s.baseR * 1.5) s.dr = -s.dr;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = '#fff';
+      ctx.fill();
+    });
+    requestAnimationFrame(animate);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+  animate();
+
+  // Photo slideshow
+  const slides = document.querySelectorAll('.photo-container img');
+  let current = 0;
+  setInterval(() => {
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+  }, 3000);
+</script>
 </body>
 </html>
